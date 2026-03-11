@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Koko Cargo Express Inc.</title>
-    <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" type="image/png" href="images/favicon.png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Merriweather:ital,wght@0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
+    <!-- ── NAVBAR ── -->
     <nav class="navbar">
         <div class="nav-container">
-           <div class="logo">
-        <img src="images/Koko_logo_transparent.png" alt="Koko Cargo Express Logo">
+
+            <div class="logo">
+                <img src="images/Koko_logo_transparent.png" alt="Koko Cargo Express Logo">
             </div>
 
             <ul class="nav-links">
@@ -22,356 +28,734 @@
                 <li><a href="#services">Servicios</a></li>
                 <li><a href="#agencias-usa">Agencias EE.UU</a></li>
                 <li><a href="#agencias-ecuador">Agencias Ecuador</a></li>
-                <li><a href="#contacto">Contactanos</a></li>
+                <li><a href="#contacto">Contáctanos</a></li>
             </ul>
+
+            <a href="tel:7186720392" class="nav-phone">
+                📞 (718) 672-0392
+            </a>
+
+            <button class="hamburger" id="hamburger" aria-label="Menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
+
+    <!-- ── MOBILE MENU ── -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#" onclick="closeMenu()">Inicio</a>
+        <a href="#services" onclick="closeMenu()">Servicios</a>
+        <a href="#agencias-usa" onclick="closeMenu()">Agencias EE.UU.</a>
+        <a href="#agencias-ecuador" onclick="closeMenu()">Agencias Ecuador</a>
+        <a href="#contacto" onclick="closeMenu()">Contáctanos</a>
+        <a href="tel:7186720392" class="mob-phone">📞 (718) 672-0392</a>
+    </div>
+
+
+    <!-- ── HERO ── -->
     <header class="hero">
+
+        <img
+            class="hero-img"
+            src="images/hero.png"
+            alt="Avión de carga en pista">
+
+        <div class="hero-overlay"></div>
+
         <div class="hero-content">
-            <h1>Conectando Familias Entre Estados Unidos y Ecuador</h1>
-            <p>Enviamos tus paquetes con rapidez, seguridad y el cuidado que tu familia merece.</p>
+
+            <h1>
+                Envíos rápidos y seguros<br>
+                <em>entre Estados Unidos y Ecuador</em>
+            </h1>
+
+            <p>
+                Más de 26 años conectando familias con entregas confiables,
+                giros seguros y productos del hogar ecuatoriano.
+            </p>
 
             <div class="hero-buttons">
-                <!--<a href="#" class="btn-primary">Button#1</a>-->
-                <!--<a href="#" class="btn-secondary">Contáctanos</a>-->
+                <a href="#services" class="btn-primary">Nuestros Servicios</a>
+                <a href="#agencias-usa" class="btn-secondary">📍 Encontrar Agencia</a>
             </div>
+
         </div>
+
+        <div class="scroll-hint">Descubre más</div>
+
     </header>
 
+
+    <!-- ── SERVICES ── -->
     <section id="services" class="services">
-    <div class="services-container">
+        <div class="services-container">
 
-        <h2>Nuestros Servicios</h2>
-
-        <div class="services-grid">
-
-            <div class="service-card">
-                <h3>Envíos Express</h3>
-                <p>Más de 26 años ofreciendo envíos rápidos y seguros desde Estados Unidos hasta n Ecuador.</p>
+            <div class="section-top reveal">
+                <span class="section-chip">Nuestros Servicios</span>
+                <h2>Todo lo que tu familia <em>necesita</em></h2>
+                <p class="section-sub">
+                    Desde envíos express hasta productos ecuatorianos — hacemos más fácil la distancia.
+                </p>
             </div>
 
-            <div class="service-card">
-                <h3>Giros</h3>
-                <p>Envía dinero a tus seres queridos de manera segura, rápida y confiable.</p>
-            </div>
+            <div class="services-grid">
 
-            <div class="service-card">
-                <h3>Productos Ecuatorianos</h3>
-                <p>Encuentra productos tradicionales ecuatorianos que te conectan con tu hogar.</p>
-            </div>
+                <!-- Card 1 -->
+                <div class="service-card reveal">
+                    <div class="svc-img-wrap">
+                        <img
+                            src="images/enviosExpress.png"
+                            alt="Envíos Express">
+                        <div class="svc-img-overlay"></div>
+                        <span class="svc-img-label">Servicio #1</span>
+                    </div>
+                    <div class="svc-body">
+                        <h3>Envíos Express</h3>
+                        <p>Más de 26 años ofreciendo envíos rápidos y seguros desde Estados Unidos hasta Ecuador.</p>
+                        <a href="#contacto" class="svc-cta">Cotizar envío →</a>
+                    </div>
+                </div>
 
+                <!-- Card 2 -->
+                <div class="service-card reveal">
+                    <div class="svc-img-wrap">
+                        <img
+                            src="https://images.unsplash.com/photo-1580519542036-c47de6196ba5?w=600&q=80"
+                            alt="Giros"> 
+                        <div class="svc-img-overlay"></div>
+                        <span class="svc-img-label">Servicio #2</span>
+                    </div>
+                    <div class="svc-body">
+                        <h3>Giros</h3>
+                        <p>Envía dinero a tus seres queridos de manera segura, rápida y confiable.</p>
+                        <a href="#contacto" class="svc-cta">Enviar dinero →</a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="service-card reveal">
+                    <div class="svc-img-wrap">
+                    <!--    <img
+                            src="https://images.unsplash.com/photo-1590779033100-9f60a05a013d?w=600&q=80"
+                            alt="Productos Ecuatorianos"> -->
+                        <div class="svc-img-overlay"></div>
+                        <span class="svc-img-label">Servicio #3</span>
+                    </div>
+                    <div class="svc-body">
+                        <h3>Productos Ecuatorianos</h3>
+                        <p>Encuentra productos tradicionales ecuatorianos que te conectan con tu hogar.</p>
+                        <a href="#contacto" class="svc-cta">Ver productos →</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ── STATS ── -->
+    <div class="stats-bar">
+
+        <div class="stat-cell reveal">
+            <div class="stat-num">26+</div>
+            <div class="stat-label">Años de servicio</div>
+        </div>
+
+        <div class="stat-cell reveal">
+            <div class="stat-num">13</div>
+            <div class="stat-label">Agencias EE.UU</div>
+        </div>
+
+        <div class="stat-cell reveal">
+            <div class="stat-num">23</div>
+            <div class="stat-label">Agencias Ecuador</div>
+        </div>
+
+        <div class="stat-cell reveal">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Servicios principales</div>
         </div>
 
     </div>
-</section>
 
-<section id="agencias-usa" class="locations">
-    <div class="container">
-        <h2>Agencias en Estados Unidos</h2>
 
-        <div class="locations-grid">
+    <!-- ── AGENCIES USA ── -->
+    <section id="agencias-usa" class="locations">
+        <div class="container">
 
-            <div class="location-card">
-                <h3>Brockton</h3>
-                <p><strong>DIVERSIDAD ECUATORIANA CORP</strong></p>
-                <p>252 Belmont St.</p>
-                <p>Tel: 508 5104322</p>
+            <div class="agencies-header reveal">
+                <div>
+                    <span class="section-chip">Red de distribución</span>
+                    <h2>Agencias en <em>Estados Unidos</em></h2>
+                </div>
+                <p class="section-sub">Encuentra el punto de envío más cercano a ti.</p>
             </div>
 
-            <div class="location-card">
-                <h3>Brooklyn</h3>
-                <p><strong>KOKO CARGO EXPRESS INC</strong></p>
-                <p>287 St Nicholas Ave. NY 11385</p>
-                <p>Tel: 347 6893514</p>
-            </div>
+            <div class="locations-grid">
 
-            <div class="location-card">
-                <h3>Danbury</h3>
-                <p><strong>CARGO EXPRESS</strong></p>
-                <p>5 Main St Danbury CT 06810</p>
-                <p>Tel: 203 7986560</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Brockton</h3>
+                    <p><strong>DIVERSIDAD ECUATORIANA CORP</strong></p>
+                    <p>252 Belmont St.</p>
+                    <p>Tel: 508 510-4322</p>
+                    <a href="https://maps.google.com/?q=252+Belmont+St+Brockton+MA" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Elmsford</h3>
-                <p><strong>P.H. ELMFORD EXPRESS</strong></p>
-                <p>17 E. Main St.</p>
-                <p>Tel: 914 5920353</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Brooklyn</h3>
+                    <p><strong>KOKO CARGO EXPRESS INC</strong></p>
+                    <p>287 St Nicholas Ave. NY 11385</p>
+                    <p>Tel: 347 689-3514</p>
+                    <a href="https://maps.google.com/?q=287+St+Nicholas+Ave+Brooklyn+NY" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Hackensack</h3>
-                <p><strong>FERVA COURIER</strong></p>
-                <p>75 Anderson St Hackensack NJ 07601</p>
-                <p>Tel: 201 4887779</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Danbury</h3>
+                    <p><strong>CARGO EXPRESS</strong></p>
+                    <p>5 Main St Danbury CT 06810</p>
+                    <p>Tel: 203 798-6560</p>
+                    <a href="https://maps.google.com/?q=5+Main+St+Danbury+CT" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Lansdale</h3>
-                <p><strong>CHRISTIAN EXPRESS SHOP</strong></p>
-                <p>19 W Main St.</p>
-                <p>Tel: 215 3933400</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Elmsford</h3>
+                    <p><strong>P.H. ELMFORD EXPRESS</strong></p>
+                    <p>17 E. Main St.</p>
+                    <p>Tel: 914 592-0353</p>
+                    <a href="https://maps.google.com/?q=17+E+Main+St+Elmsford+NY" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>New London</h3>
-                <p><strong>MI GENTE EXPRESS</strong></p>
-                <p>189 B Bank Street</p>
-                <p>Tel: 860 4472525</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Hackensack</h3>
+                    <p><strong>FERVA COURIER</strong></p>
+                    <p>75 Anderson St Hackensack NJ 07601</p>
+                    <p>Tel: 201 488-7779</p>
+                    <a href="https://maps.google.com/?q=75+Anderson+St+Hackensack+NJ" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Newark</h3>
-                <p><strong>SUREXPRESS</strong></p>
-                <p>174 Adam St.</p>
-                <p>Tel: 973 4651233</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Lansdale</h3>
+                    <p><strong>CHRISTIAN EXPRESS SHOP</strong></p>
+                    <p>19 W Main St.</p>
+                    <p>Tel: 215 393-3400</p>
+                    <a href="https://maps.google.com/?q=19+W+Main+St+Lansdale+PA" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Patchogue</h3>
-                <p><strong>AMAZONAS EXPRESS</strong></p>
-                <p>82 E Main St.</p>
-                <p>Tel: 631 4470079</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>New London</h3>
+                    <p><strong>MI GENTE EXPRESS</strong></p>
+                    <p>189 B Bank Street</p>
+                    <p>Tel: 860 447-2525</p>
+                    <a href="https://maps.google.com/?q=189+Bank+Street+New+London+CT" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Philadelphia</h3>
-                <p><strong>CHRISTIAN EXPRESS INC.</strong></p>
-                <p>5233 North 5 Street</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Newark</h3>
+                    <p><strong>SUREXPRESS</strong></p>
+                    <p>174 Adam St.</p>
+                    <p>Tel: 973 465-1233</p>
+                    <a href="https://maps.google.com/?q=174+Adam+St+Newark+NJ" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Port Chester</h3>
-                <p><strong>FOTO CENTRAL</strong></p>
-                <p>211 Westchester Ave.</p>
-                <p>Tel: 914 9371843</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Patchogue</h3>
+                    <p><strong>AMAZONAS EXPRESS</strong></p>
+                    <p>82 E Main St.</p>
+                    <p>Tel: 631 447-0079</p>
+                    <a href="https://maps.google.com/?q=82+E+Main+St+Patchogue+NY" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Queens</h3>
-                <p><strong>KOKO CARGO EXPRESS INC</strong></p>
-                <p>95 45 Roosevelt Ave.</p>
-                <p>Tel: 718 6720392</p>
-                <p>Tel: 718 6724825</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Philadelphia</h3>
+                    <p><strong>CHRISTIAN EXPRESS INC.</strong></p>
+                    <p>5233 North 5 Street</p>
+                    <a href="https://maps.google.com/?q=5233+North+5th+Street+Philadelphia+PA" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Upper Darby</h3>
-                <p><strong>CHRISTIAN EXPRESS SHOP</strong></p>
-                <p>6505 Market St Millbourne PA 19082</p>
-                <p>Tel: 484 4664336</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Port Chester</h3>
+                    <p><strong>FOTO CENTRAL</strong></p>
+                    <p>211 Westchester Ave.</p>
+                    <p>Tel: 914 937-1843</p>
+                    <a href="https://maps.google.com/?q=211+Westchester+Ave+Port+Chester+NY" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
+                <div class="location-card reveal main-office">
+                    <h3>Queens</h3>
+                    <p><strong>KOKO CARGO EXPRESS INC</strong></p>
+                    <p>95-45 Roosevelt Ave.</p>
+                    <p>Tel: (718) 672-0392</p>
+                    <p>Tel: (718) 672-4825</p>
+                    <a href="https://maps.google.com/?q=9545+Roosevelt+Ave+Queens+NY" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
+
+                <div class="location-card reveal">
+                    <h3>Upper Darby</h3>
+                    <p><strong>CHRISTIAN EXPRESS SHOP</strong></p>
+                    <p>6505 Market St Millbourne PA 19082</p>
+                    <p>Tel: 484 466-4336</p>
+                    <a href="https://maps.google.com/?q=6505+Market+St+Upper+Darby+PA" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
+
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section id="agencias-ecuador" class="locations">
-    <div class="container">
-        <h2>Agencias en Ecuador</h2>
 
-        <div class="locations-grid">
+    <!-- ── AGENCIES ECUADOR ── -->
+    <section id="agencias-ecuador" class="locations alt-bg">
+        <div class="container">
 
-            <div class="location-card">
-                <h3>Ambato</h3>
-                <p>Av. 12 De Noviembre 8-83 y Juan Benigno Vela.</p>
-                <p>Tel: 32824340</p>
+            <div class="agencies-header reveal">
+                <div>
+                    <span class="section-chip">Red en Ecuador</span>
+                    <h2>Agencias en <em>Ecuador</em></h2>
+                </div>
+                <p class="section-sub">Cobertura nacional en todo el país.</p>
             </div>
 
-            <div class="location-card">
-                <h3>Azogues</h3>
-                <p>C. Julio Maria Matovelle 5-06, Azogues 030102.</p>
-                <p>Tel: 2249009</p>
-            </div>
+            <div class="locations-grid">
 
-            <div class="location-card">
-                <h3>Biblián</h3>
-                <p>Benjamín Ochoa y Mariscal Sucre.</p>
-                <p>Tel: 2232128</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Ambato</h3>
+                    <p>Av. 12 De Noviembre 8-83 y Juan Benigno Vela.</p>
+                    <p>Tel: 032 824-340</p>
+                    <a href="https://maps.google.com/?q=Ambato+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Cañar</h3>
-                <p>Calle 10 de Agosto y Guayaquil, junto a la funeraria.</p>
-                <p>Tel: 2236821</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Azogues</h3>
+                    <p>C. Julio Maria Matovelle 5-06, Azogues 030102.</p>
+                    <p>Tel: 022 490-09</p>
+                    <a href="https://maps.google.com/?q=Azogues+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Chordeleg</h3>
-                <p>Calle Guayaquil y 24 de Mayo 6-59 (Bajos Hotel Vigus)</p>
-                <p>Tel: 2223313</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Biblián</h3>
+                    <p>Benjamín Ochoa y Mariscal Sucre.</p>
+                    <p>Tel: 022 321-28</p>
+                    <a href="https://maps.google.com/?q=Biblian+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Chunchi</h3>
-                <p>Calle Capita Ricaurte y Pío Montúfar, frente a Servientrega.</p>
-                <p>Tel: 32936144</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Cañar</h3>
+                    <p>Calle 10 de Agosto y Guayaquil, junto a la funeraria.</p>
+                    <p>Tel: 022 368-21</p>
+                    <a href="https://maps.google.com/?q=Canar+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Cuenca</h3>
-                <p>Pío Bravo 11-24 y General Torres</p>
-                <p>Tel: 2839001</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Chordeleg</h3>
+                    <p>Calle Guayaquil y 24 de Mayo 6-59 (Bajos Hotel Vigus)</p>
+                    <p>Tel: 022 233-13</p>
+                    <a href="https://maps.google.com/?q=Chordeleg+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Cumbe</h3>
-                <p>Casa Pastoral, Local 2, junto a la iglesia.</p>
-                <p>Tel: 4041466</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Chunchi</h3>
+                    <p>Calle Capita Ricaurte y Pío Montúfar, frente a Servientrega.</p>
+                    <p>Tel: 032 936-144</p>
+                    <a href="https://maps.google.com/?q=Chunchi+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Ducur</h3>
-                <p>Centro de Ducur, frente a Balanceados La Finca.</p>
-                <p>Tel: 2129148</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Cuenca</h3>
+                    <p>Pío Bravo 11-24 y General Torres</p>
+                    <p>Tel: 028 390-01</p>
+                    <a href="https://maps.google.com/?q=Cuenca+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>El Tambo</h3>
-                <p>Dositeo Gonzales, entre Sergio Torres, junto a CB Visión.</p>
-                <p>Tel: 2238084</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Cumbe</h3>
+                    <p>Casa Pastoral, Local 2, junto a la iglesia.</p>
+                    <p>Tel: 040 414-66</p>
+                    <a href="https://maps.google.com/?q=Cumbe+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Gualaceo</h3>
-                <p>Av. 3 de Noviembre 2-41 y Av. Jaime Roldos.</p>
-                <p>Tel: 2255754</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Ducur</h3>
+                    <p>Centro de Ducur, frente a Balanceados La Finca.</p>
+                    <p>Tel: 021 291-48</p>
+                    <a href="https://maps.google.com/?q=Ducur+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Gualaquiza</h3>
-                <p>Calle Río Santiago, atrás del Complejo Deportivo.</p>
-                <p>Tel: 2780411</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>El Tambo</h3>
+                    <p>Dositeo Gonzales, entre Sergio Torres, junto a CB Visión.</p>
+                    <p>Tel: 022 380-84</p>
+                    <a href="https://maps.google.com/?q=El+Tambo+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Guayaquil</h3>
-                <p>Av. De Las Americas Cdla Simon Bolivar Mzna 5 Sola.</p>
-                <p>Tel: 42925015</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Gualaceo</h3>
+                    <p>Av. 3 de Noviembre 2-41 y Av. Jaime Roldos.</p>
+                    <p>Tel: 022 557-54</p>
+                    <a href="https://maps.google.com/?q=Gualaceo+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>La Troncal</h3>
-                <p>Benigno Crespo y Jose Peralta, sector FQ.</p>
-                <p>Tel: 2421254</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Gualaquiza</h3>
+                    <p>Calle Río Santiago, atrás del Complejo Deportivo.</p>
+                    <p>Tel: 027 804-11</p>
+                    <a href="https://maps.google.com/?q=Gualaquiza+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Limón Indanza</h3>
-                <p>Calle Quito y Av. del Ejército.</p>
-                <p>Tel: 2770130</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Guayaquil</h3>
+                    <p>Av. De Las Americas Cdla Simon Bolivar Mzna 5 Sola.</p>
+                    <p>Tel: 042 925-015</p>
+                    <a href="https://maps.google.com/?q=Guayaquil+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Macas</h3>
-                <p>Guamote y Tarqui a 10mt de la Cooperativa Loja.</p>
-                <p>Tel: 2703087</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>La Troncal</h3>
+                    <p>Benigno Crespo y Jose Peralta, sector FQ.</p>
+                    <p>Tel: 024 212-54</p>
+                    <a href="https://maps.google.com/?q=La+Troncal+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Paute</h3>
-                <p>Calle Simon Bolivar S/N y Sucre.</p>
-                <p>Tel: 2251716</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Limón Indanza</h3>
+                    <p>Calle Quito y Av. del Ejército.</p>
+                    <p>Tel: 027 701-30</p>
+                    <a href="https://maps.google.com/?q=Limon+Indanza+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Quito</h3>
-                <p>Centro Comercial San Jose 109B Juan J y Pazmiño</p>
-                <p>Tel: 22924460</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Macas</h3>
+                    <p>Guamote y Tarqui a 10mt de la Cooperativa Loja.</p>
+                    <p>Tel: 027 030-87</p>
+                    <a href="https://maps.google.com/?q=Macas+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Riobamba</h3>
-                <p>Av. Boyacá y Juan Montalvo (Sector La Condamine)</p>
-                <p>Tel: 32967352</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Paute</h3>
+                    <p>Calle Simon Bolivar S/N y Sucre.</p>
+                    <p>Tel: 022 517-16</p>
+                    <a href="https://maps.google.com/?q=Paute+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Santa Isabel</h3>
-                <p>Calle 24 De Mayo y Abdón Calderón</p>
-                <p>Tel: 2270284</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Quito</h3>
+                    <p>Centro Comercial San Jose 109B Juan J y Pazmiño</p>
+                    <p>Tel: 022 924-460</p>
+                    <a href="https://maps.google.com/?q=Quito+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Sucúa</h3>
-                <p>Av. Carlos Julio Arosemena, frente a Radio Impacto</p>
-                <p>Tel: 2741598</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Riobamba</h3>
+                    <p>Av. Boyacá y Juan Montalvo (Sector La Condamine)</p>
+                    <p>Tel: 032 967-352</p>
+                    <a href="https://maps.google.com/?q=Riobamba+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Sígsig</h3>
-                <p>Mariscal Sucre y Thomas y Rodil, diagonal a la Coop JEP.</p>
-                <p>Tel: 0995218599</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Santa Isabel</h3>
+                    <p>Calle 24 De Mayo y Abdón Calderón</p>
+                    <p>Tel: 022 702-84</p>
+                    <a href="https://maps.google.com/?q=Santa+Isabel+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
-            <div class="location-card">
-                <h3>Suscal</h3>
-                <p>Manuel Martínez y 27 De Octubre</p>
-                <p>Tel: 2234269</p>
-            </div>
+                <div class="location-card reveal">
+                    <h3>Sucúa</h3>
+                    <p>Av. Carlos Julio Arosemena, frente a Radio Impacto</p>
+                    <p>Tel: 027 415-98</p>
+                    <a href="https://maps.google.com/?q=Sucua+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
 
+                <div class="location-card reveal">
+                    <h3>Sígsig</h3>
+                    <p>Mariscal Sucre y Thomas y Rodil, diagonal a la Coop JEP.</p>
+                    <p>Tel: 099 521-8599</p>
+                    <a href="https://maps.google.com/?q=Sigsig+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
+
+                <div class="location-card reveal">
+                    <h3>Suscal</h3>
+                    <p>Manuel Martínez y 27 De Octubre</p>
+                    <p>Tel: 022 342-69</p>
+                    <a href="https://maps.google.com/?q=Suscal+Ecuador" target="_blank" class="map-btn">
+                        📍 Ver en mapa
+                    </a>
+                </div>
+
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
+
+   <!-- ── CONTACT ── -->
 <section id="contacto" class="contact-section">
-    <div class="container">
-        <h2>Envíanos tu Mensaje</h2>
-        <p class="contact-subtitle">
-            Si tienes alguna queja, sugerencia o consulta, estamos aquí para ayudarte.
-        </p>
+    <div class="contact-wrap">
 
-       <form class="contact-form" action="#" method="POST">
-            
-            <div class="form-group">
-                <label for="nombre">Nombre Completo</label>
-                <input type="text" id="nombre" name="nombre" required>
+        <div class="contact-left reveal">
+            <span class="section-chip">Contáctanos</span>
+            <h2>Estamos aquí para <em>ayudarte</em></h2>
+            <p>
+                Si tienes alguna queja, sugerencia o consulta, nuestro equipo está listo
+                para responderte con la atención que mereces.
+            </p>
+
+            <div class="cinfo">
+                <a href="https://wa.me/19177761602" target="_blank" class="cinfo-icon whatsapp-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                </a>
+                <div class="cinfo-text">
+                    <strong>WhatsApp</strong>
+                    <a href="https://wa.me/19177761602" target="_blank">(917) 776-1602</a>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="paquete">Numero de Paquete</label>
-                <input type="text" id="paquete" name="paquete" required>
+            <div class="social-links">
+                <a href="https://www.facebook.com/people/KOKO-CARGO/100063939484978/" target="_blank" class="social-btn facebook" aria-label="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                    Facebook
+                </a>
+                <a href="https://www.instagram.com/kokocargoexpress/" target="_blank" class="social-btn instagram" aria-label="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                    </svg>
+                    Instagram
+                </a>
+                <a href="https://www.tiktok.com/@kokocargoexpress" target="_blank" class="social-btn tiktok" aria-label="TikTok">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                    </svg>
+                    TikTok
+                </a>
             </div>
 
-            <div class="form-group">
-                <label for="telefono">Teléfono</label>
-                <input type="tel" id="telefono" name="telefono" required>
+        </div>
+
+    <form class="contact-form reveal" id="contactForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo</label>
+                    <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        placeholder="Tu nombre"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="paquete">Número de Paquete</label>
+                    <input
+                        type="text"
+                        id="paquete"
+                        name="paquete"
+                        placeholder="HAWB número">
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="email">Correo Electrónico</label>
-                <input type="email" id="email" name="email" required>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input
+                        type="tel"
+                        id="telefono"
+                        name="telefono"
+                        placeholder="+1 000 000 0000"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="tu@email.com"
+                        required>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="mensaje">Mensaje</label>
-                <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+                <textarea
+                    id="mensaje"
+                    name="mensaje"
+                    rows="5"
+                    placeholder="¿En qué podemos ayudarte?"
+                    required></textarea>
             </div>
 
-            <button type="submit" class="btn-primary">
+            <button type="submit" class="btn-submit">
                 Enviar Mensaje
             </button>
 
         </form>
+
     </div>
 </section>
 
-<footer class="footer">
-    <div class="footer-container">
 
-        <div class="footer-logo">
-            <img src="images/slogan.png" alt="Koko Cargo Express Logo">
+    <!-- ── FOOTER ── -->
+    <footer class="footer">
+        <div class="footer-inner">
+
+            <div class="footer-top">
+
+                <div class="footer-brand">
+                    <img src="images/Koko_logo_transparent.png" alt="Koko Cargo Express Logo">
+                    <p>
+                        Más de 26 años conectando familias entre Estados Unidos
+                        y Ecuador con solvencia, amabilidad y rapidez.
+                    </p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Enlaces Rápidos</h4>
+                    <a href="#">Inicio</a>
+                    <a href="#services">Servicios</a>
+                    <a href="#agencias-usa">Agencias EE.UU.</a>
+                    <a href="#agencias-ecuador">Agencias Ecuador</a>
+                    <a href="#contacto">Contáctanos</a>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <p>
+                        95-45 Roosevelt Ave,<br>
+                        Queens, NY — Oficina Principal
+                    </p>
+                    <p style="margin-top: 0.6rem">
+                        📞 (718) 672-0392<br>
+                        📞 (718) 672-4825
+                    </p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Horario</h4>
+                    <div class="footer-hours">
+                        Lunes a Sabado<br>
+                        9:00am – 8:00pm<br>
+                        <br>
+                        Domingo<br> 
+                        9:30am – 8:00pm
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 Koko Cargo Express Inc. — Todos los derechos reservados.</p>
+                <p>Más de 26 años conectando familias entre Estados Unidos y Ecuador.</p>
+            </div>
+
         </div>
+    </footer>
 
-        <div class="footer-info">
-            <p>© 2026 Koko Cargo Express Inc.</p>
-            <p>Más de 26 años conectando familias entre Estados Unidos y Ecuador.</p>
-        </div>
 
-    </div>
-</footer>
+    <script src="js/main.js"></script>
+
+<script>
+    emailjs.init('3ou15Z4ce76nr9P1q');
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const btn = this.querySelector('.btn-submit');
+        btn.textContent = 'Enviando...';
+        btn.disabled = true;
+
+        emailjs.sendForm('service_hx25zqq', 'template_zt8hmky', this)
+            .then(() => {
+                btn.textContent = '¡Mensaje enviado!';
+                btn.style.background = 'var(--g3)';
+                this.reset();
+                setTimeout(() => {
+                    btn.textContent = 'Enviar Mensaje';
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 4000);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                btn.textContent = 'Error al enviar. Intenta de nuevo.';
+                btn.style.background = '#c0392b';
+                btn.disabled = false;
+            });
+    });
+</script>
 
 </body>
+
 </html>
