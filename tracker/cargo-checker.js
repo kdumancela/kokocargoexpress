@@ -36,7 +36,7 @@ if (!isBusinessHours()) {
 }
 
 // ── Load watchlist ─────────────────────────────────────────────────────────
-const watchlistPath = path.join(__dirname, "watchlist.json");
+const watchlistPath = path.join(__dirname, "..", "watchlist.json");
 const watchlist = JSON.parse(fs.readFileSync(watchlistPath, "utf8"));
 
 if (!watchlist.shipments || watchlist.shipments.length === 0) {
