@@ -2,27 +2,25 @@ name: Cargo Status Checker
 
 on:
   schedule:
-    # Runs every hour Mon–Sat, 1pm–11pm UTC (= 9am–7pm ET)
-    # GitHub cron: minute hour day month weekday
-    - cron: '0 13 * * 1-6'  # 1pm UTC  (9am ET)
-    - cron: '0 14 * * 1-6'  # 2pm UTC  (10am ET)
-    - cron: '0 15 * * 1-6'  # 3pm UTC  (11am ET)
-    - cron: '0 16 * * 1-6'  # 4pm UTC  (12pm ET)
-    - cron: '0 17 * * 1-6'  # 5pm UTC  (1pm ET)
-    - cron: '0 18 * * 1-6'  # 6pm UTC  (2pm ET)
-    - cron: '0 19 * * 1-6'  # 7pm UTC  (3pm ET)
-    - cron: '0 20 * * 1-6'  # 8pm UTC  (4pm ET)
-    - cron: '0 21 * * 1-6'  # 9pm UTC  (5pm ET)
-    - cron: '0 22 * * 1-6'  # 10pm UTC (6pm ET)
-    - cron: '0 23 * * 1-6'  # 11pm UTC (7pm ET)
-  workflow_dispatch:        # allows manual trigger from GitHub Actions tab
+    - cron: '0 13 * * 1-6'
+    - cron: '0 14 * * 1-6'
+    - cron: '0 15 * * 1-6'
+    - cron: '0 16 * * 1-6'
+    - cron: '0 17 * * 1-6'
+    - cron: '0 18 * * 1-6'
+    - cron: '0 19 * * 1-6'
+    - cron: '0 20 * * 1-6'
+    - cron: '0 21 * * 1-6'
+    - cron: '0 22 * * 1-6'
+    - cron: '0 23 * * 1-6'
+  workflow_dispatch:
 
 jobs:
   check-cargo:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write       # needed to commit watchlist.json updates back to repo
+      contents: write
 
     steps:
       - name: Checkout repo
@@ -36,13 +34,15 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
+        working-directory: tracker
         run: npm install
 
       - name: Install Chromium for Puppeteer
-        run: npx puppeteer browsers install chrome
         working-directory: tracker
+        run: npx puppeteer browsers install chrome
 
       - name: Run cargo checker
+        working-directory: tracker
         env:
           EMAIL_USER:    ${{ secrets.EMAIL_USER }}
           EMAIL_PASS:    ${{ secrets.EMAIL_PASS }}
