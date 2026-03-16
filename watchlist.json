@@ -3,7 +3,7 @@
     {
       "mawb": "230-65923535",
       "addedAt": "2026-03-16T20:24:57.413Z",
-      "lastChecked": "2026-03-16T20:40:21.180Z",
+      "lastChecked": "2026-03-16T20:49:09.016Z",
       "lastStatuses": [
         {
           "origin": "PTY",
@@ -82,10 +82,113 @@
     {
       "mawb": "729-91024161",
       "addedAt": "2026-03-16T20:43:04.183Z",
-      "lastChecked": null,
-      "lastStatuses": [],
-      "notifiedCodes": [],
-      "completed": false,
+      "lastChecked": "2026-03-16T20:49:14.531Z",
+      "lastStatuses": [
+        {
+          "origin": "GYE",
+          "dest": "JFK",
+          "flight": "AV7392",
+          "status": "Departed",
+          "code": "ULD",
+          "eventDate": "15MAR26",
+          "eventTime": "17:25",
+          "pieces": "11",
+          "weight": "442.0"
+        },
+        {
+          "origin": "GYE",
+          "dest": "JFK",
+          "flight": "AV7392",
+          "status": "Arrived",
+          "code": "ARR",
+          "eventDate": "16MAR26",
+          "eventTime": "01:31",
+          "pieces": "11",
+          "weight": "442.0"
+        },
+        {
+          "origin": "GYE",
+          "dest": "JFK",
+          "flight": "AV7392",
+          "status": "Received From Flight",
+          "code": "RCF",
+          "eventDate": "16MAR26",
+          "eventTime": "01:31",
+          "pieces": "11",
+          "weight": "442.0"
+        },
+        {
+          "origin": "GYE",
+          "dest": "JFK",
+          "flight": "AV7392",
+          "status": "Arrival documents delivered to Consignee/Agent",
+          "code": "AWD",
+          "eventDate": "16MAR26",
+          "eventTime": "01:31",
+          "pieces": "11",
+          "weight": "442.0"
+        },
+        {
+          "origin": "GYE",
+          "dest": "JFK",
+          "flight": "AV7392",
+          "status": "Consignee/Agent notified of arrival",
+          "code": "NFD",
+          "eventDate": "16MAR26",
+          "eventTime": "01:31",
+          "pieces": "11",
+          "weight": "442.0"
+        },
+        {
+          "origin": "GYE",
+          "dest": "JFK",
+          "flight": "AV7392",
+          "status": "Arrived",
+          "code": "ARR",
+          "eventDate": "16MAR26",
+          "eventTime": "01:32",
+          "pieces": "11",
+          "weight": "442.0"
+        },
+        {
+          "origin": "GYE",
+          "dest": "JFK",
+          "flight": "AV7392",
+          "status": "Arrival documents delivered to Consignee/Agent",
+          "code": "AWD",
+          "eventDate": "16MAR26",
+          "eventTime": "01:32",
+          "pieces": "11",
+          "weight": "442.0"
+        },
+        {
+          "origin": "GYE",
+          "dest": "JFK",
+          "flight": "AV7392",
+          "status": "Cleared by Customs",
+          "code": "CCD",
+          "eventDate": "16MAR26",
+          "eventTime": "11:50",
+          "pieces": "11",
+          "weight": "442.0"
+        },
+        {
+          "origin": "GYE",
+          "dest": "JFK",
+          "flight": "AV7392",
+          "status": "Delivered",
+          "code": "DLV",
+          "eventDate": "16MAR26",
+          "eventTime": "15:41",
+          "pieces": "11",
+          "weight": "442.0"
+        }
+      ],
+      "notifiedCodes": [
+        "CCD",
+        "DLV"
+      ],
+      "completed": true,
       "lastError": null
     }
   ]
