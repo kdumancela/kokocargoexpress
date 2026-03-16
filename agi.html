@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cargo Tracker — Koko Cargo</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Merriweather:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --g1: #0d3318;
+      --g2: #1a5c28;
+      --g3: #2e7d3a;
+      --g4: #4caf60;
+      --g5: #c8e6cc;
+      --g6: #eef7ef;
+      --ink: #121e13;
+      --mid: #3d5440;
+      --light: #6b7c6f;
+      --border: #d6eada;
+      --white: #ffffff;
+      --off: #f6faf6;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--g1); color: var(--ink); min-height: 100vh; }
+
+    /* ─── LOGIN ─────────────────────────────────────────────────────── */
+    #loginScreen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #loginScreen::before {
+      content: '';
+      position: absolute;
+      top: 35%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(46,125,58,0.3) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .login-wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 340px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .login-logo {
+      margin-bottom: 2.8rem;
+    }
+
+    .login-logo img {
+      height: 120px;
+      filter: brightness(0) invert(1);
+      opacity: 0.92;
+    }
+
+    .login-wrap input[type="password"] {
+      width: 100%;
+      padding: 1rem 1.2rem;
+      background: rgba(255,255,255,0.09);
+      border: 1.5px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      color: white;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      margin-bottom: 0.75rem;
+      text-align: center;
+      letter-spacing: 0.18em;
+    }
+
+    .login-wrap input[type="password"]::placeholder {
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.05em;
+    }
+
+    .login-wrap input[type="password"]:focus {
+      border-color: var(--g4);
+      background: rgba(255,255,255,0.14);
+    }
+
+    .login-wrap input.shake {
+      border-color: #f87171;
+      animation: shake 0.35s ease;
+    }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-8px); }
+      60%      { transform: translateX(8px); }
+      80%      { transform: translateX(-4px); }
+    }
+
+    .btn-login {
+      width: 100%;
+      background: var(--g3);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 1rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+      letter-spacing: 0.03em;
+    }
+
+    .btn-login:hover { background: var(--g4); transform: translateY(-1px); }
+
+    .login-err {
+      color: #fca5a5;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-top: 0.65rem;
+      height: 1rem;
+    }
+
+    /* ─── DASHBOARD ──────────────────────────────────────────────────── */
+    #dash {
+      display: none;
+      min-height: 100vh;
+      background: var(--g5);
+    }
+
+    /* Top bar */
+    .topbar {
+      background: var(--g1);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+    }
+
+    .topbar-logo img {
+      height: 52px;
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .biz-pill {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.9rem;
+      border-radius: 50px;
+    }
+
+    .biz-pill.on  { background: var(--g3); color: white; }
+    .biz-pill.off { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+
+    .btn-topbar {
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.2);
+      color: white;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 0.4rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      letter-spacing: 0.04em;
+    }
+
+    .btn-topbar:hover { background: rgba(255,255,255,0.2); }
+
+    /* Main content */
+    .dash-main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+    }
+
+    /* Page title */
+    .dash-title {
+      margin-bottom: 2rem;
+    }
+
+    .dash-title h1 {
+      font-family: 'Merriweather', serif;
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      color: var(--g1);
+      margin-bottom: 0.2rem;
+    }
+
+    .dash-title h1 em { font-style: italic; color: var(--g3); }
+
+    .dash-title p { font-size: 0.85rem; color: var(--mid); }
+
+    /* Add card */
+    .add-card {
+      background: var(--g2);
+      border-radius: 18px;
+      padding: 1.6rem 1.8rem;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 4px 20px rgba(13,51,24,0.18);
+    }
+
+    .add-label {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 0.8rem;
+    }
+
+    .add-row { display: flex; gap: 0.7rem; }
+
+    .add-row input {
+      flex: 1;
+      padding: 0.8rem 1rem;
+      background: rgba(255,255,255,0.1);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-radius: 10px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: white;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .add-row input::placeholder { color: rgba(255,255,255,0.4); }
+    .add-row input:focus { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.15); }
+
+    .btn-add {
+      background: white;
+      color: var(--g2);
+      border: none;
+      border-radius: 10px;
+      padding: 0.8rem 1.5rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 900;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s, transform 0.15s;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+
+    .btn-add:hover { background: var(--g6); transform: translateY(-1px); }
+
+    /* List header */
+    .list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.9rem;
+    }
+
+    .list-header span {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--mid);
+    }
+
+    .last-chk { font-size: 0.76rem !important; text-transform: none !important; letter-spacing: 0 !important; color: var(--mid) !important; font-weight: 600 !important; }
+
+    /* Empty state */
+    .empty {
+      background: white;
+      border: 1.5px dashed var(--border);
+      border-radius: 16px;
+      padding: 3.5rem 2rem;
+      text-align: center;
+    }
+
+    .empty .ei { font-size: 2.2rem; margin-bottom: 0.8rem; }
+    .empty p { font-size: 0.88rem; color: var(--light); line-height: 1.7; }
+
+    /* Shipment card */
+    .scard {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 0.9rem;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 10px rgba(13,51,24,0.05);
+    }
+
+    .scard:hover { border-color: var(--g4); box-shadow: 0 4px 20px rgba(13,51,24,0.1); }
+
+    .scard-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.4rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .scard-left { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+
+    .mawb { font-size: 1rem; font-weight: 900; color: var(--ink); letter-spacing: 0.04em; }
+
+    .sbadge {
+      font-size: 0.66rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 0.22rem 0.65rem;
+      border-radius: 50px;
+      border: 1.5px solid;
+    }
+
+    .sb-ccd  { color: var(--g2);    background: var(--g6);  border-color: var(--border); }
+    .sb-dlv  { color: #0d5c1e;      background: #d4f0da;    border-color: #a8ddb3;       }
+    .sb-wait { color: var(--light);  background: var(--off); border-color: var(--border); }
+    .sb-err  { color: #8b1a1a;      background: #fdecea;    border-color: #f5c6c6;       }
+
+    .scard-right { display: flex; align-items: center; gap: 0.9rem; }
+
+    .schk { font-size: 0.73rem; color: var(--light); font-weight: 600; }
+
+    .btn-rm {
+      background: none;
+      border: none;
+      color: var(--light);
+      font-size: 0.85rem;
+      cursor: pointer;
+      padding: 4px 6px;
+      border-radius: 5px;
+      line-height: 1;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .btn-rm:hover { color: #c0392b; background: #fdecea; }
+
+    .chev { font-size: 0.65rem; color: var(--light); transition: transform 0.2s; }
+    .chev.open { transform: rotate(180deg); }
+
+    /* Card body */
+    .scard-body {
+      display: none;
+      border-top: 1.5px solid var(--border);
+      padding: 1rem 1.4rem 1.2rem;
+      background: var(--off);
+    }
+
+    .scard-body.open { display: block; }
+
+    /* Status table */
+    .stbl { width: 100%; border-collapse: collapse; font-size: 0.79rem; }
+
+    .stbl th {
+      font-size: 0.62rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--light);
+      text-align: left;
+      padding: 0 0.8rem 0.5rem 0;
+      border-bottom: 1.5px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .stbl td {
+      padding: 0.55rem 0.8rem 0.55rem 0;
+      border-bottom: 1px solid var(--g6);
+      color: var(--mid);
+      font-weight: 600;
+      vertical-align: middle;
+    }
+
+    .stbl tr:last-child td { border-bottom: none; }
+    .stbl tr.alert-row td { background: rgba(200,230,204,0.25); }
+
+    .ctag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 0.18rem 0.5rem;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    .ct-ccd { color: var(--g2);    background: var(--g6); }
+    .ct-dlv { color: #0d5c1e;     background: #d4f0da;   }
+    .ct-def { color: var(--light); background: white;     border: 1px solid var(--border); }
+
+    .no-data { color: var(--light); font-style: italic; font-size: 0.8rem; padding: 0.8rem 0; }
+    .err-note { color: #c0392b; font-size: 0.76rem; margin-top: 0.5rem; font-weight: 600; }
+
+    /* Push strip */
+    .push-strip {
+      background: var(--g1);
+      border-radius: 14px;
+      padding: 1.1rem 1.4rem;
+      margin-top: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      box-shadow: 0 4px 18px rgba(13,51,24,0.18);
+    }
+
+    .push-info h4 { font-size: 0.85rem; font-weight: 800; color: white; margin-bottom: 0.15rem; }
+    .push-info p  { font-size: 0.75rem; color: rgba(255,255,255,0.5); }
+    .push-right   { display: flex; align-items: center; gap: 0.75rem; }
+    .push-txt     { font-size: 0.75rem; font-weight: 700; color: rgba(255,255,255,0.45); }
+    .push-txt.on  { color: var(--g4); }
+
+    /* Modal */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 400;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-bg.open { display: flex; }
+
+    .modal-box {
+      background: white;
+      border-radius: 18px;
+      padding: 2.2rem;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+    }
+
+    .modal-box h3 {
+      font-family: 'Merriweather', serif;
+      font-size: 1.15rem;
+      color: var(--ink);
+      margin-bottom: 0.35rem;
+    }
+
+    .modal-sub { font-size: 0.82rem; color: var(--light); line-height: 1.7; margin-bottom: 1.6rem; }
+
+    .mf { margin-bottom: 0.9rem; }
+
+    .mf label {
+      display: block;
+      font-size: 0.67rem;
+      font-weight: 800;
+      color: var(--mid);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.3rem;
+    }
+
+    .mf input {
+      width: 100%;
+      padding: 0.72rem 0.9rem;
+      background: var(--off);
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.87rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .mf input:focus { border-color: var(--g3); box-shadow: 0 0 0 3px rgba(46,125,58,.1); }
+
+    .mnote { font-size: 0.74rem; color: var(--light); line-height: 1.7; margin-bottom: 1.4rem; }
+    .mnote strong { color: var(--mid); }
+    .mnote code { background: var(--off); padding: 1px 5px; border-radius: 4px; border: 1px solid var(--border); }
+
+    .mactions { display: flex; gap: 0.7rem; }
+
+    .btn-mcancel {
+      background: var(--off);
+      border: 1.5px solid var(--border);
+      color: var(--mid);
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 0.7rem 1.3rem;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .btn-mcancel:hover { border-color: var(--g3); color: var(--g2); }
+
+    .btn-msave {
+      flex: 1;
+      background: var(--g2);
+      color: white;
+      border: none;
+      border-radius: 9px;
+      padding: 0.7rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-msave:hover { background: var(--g1); }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 1.8rem;
+      right: 1.8rem;
+      background: var(--g1);
+      color: white;
+      padding: 0.75rem 1.3rem;
+      border-radius: 10px;
+      font-size: 0.83rem;
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: all 0.22s;
+      pointer-events: none;
+      z-index: 500;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.2);
+    }
+
+    #toast.show { opacity: 1; transform: translateY(0); }
+    #toast.terr { background: #7f1d1d; }
+
+    @media (max-width: 640px) {
+      .topbar { padding: 0 1.2rem; }
+      .topbar-logo img { height: 42px; }
+      .dash-main { padding: 1.8rem 1.2rem 4rem; }
+      .add-row { flex-direction: column; }
+      .btn-add { width: 100%; }
+      .schk { display: none; }
+      .stbl th:nth-child(1), .stbl td:nth-child(1),
+      .stbl th:nth-child(6), .stbl td:nth-child(6) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN ──────────────────────────────────────────────────────────────── -->
+<div id="loginScreen">
+  <div class="login-wrap">
+    <div class="login-logo">
+      <img src="images/Koko_logo_transparent.png" alt="Koko Cargo Express">
+    </div>
+    <input type="password" id="pwInput" placeholder="Contraseña" autocomplete="current-password">
+    <button class="btn-login" onclick="tryLogin()">Acceder</button>
+    <p class="login-err" id="loginErr"></p>
+  </div>
+</div>
+
+<!-- ── DASHBOARD ──────────────────────────────────────────────────────────── -->
+<div id="dash">
+
+  <div class="topbar">
+    <div class="topbar-logo">
+      <img src="images/Koko_logo_transparent.png" alt="Koko Cargo">
+    </div>
+    <div class="topbar-right">
+      <span class="biz-pill off" id="bizPill">⬤ Cargando...</span>
+      <button class="btn-topbar" onclick="openCfg()">⚙ Config</button>
+      <button class="btn-topbar" onclick="doLogout()">Salir</button>
+    </div>
+  </div>
+
+  <div class="dash-main">
+
+    <div class="dash-title">
+      <h1>Seguimiento de <em>Carga</em></h1>
+      <p>Monitoreo automático AGI ONE · JFK · Lun–Sáb 9am–7pm ET</p>
+    </div>
+
+    <div class="add-card">
+      <div class="add-label">Agregar envío</div>
+      <div class="add-row">
+        <input type="text" id="mawbIn" placeholder="Número MAWB — ej: 230-65923535" maxlength="14"
+          onkeydown="if(event.key==='Enter') addShip()">
+        <button class="btn-add" onclick="addShip()">+ Agregar</button>
+      </div>
+    </div>
+
+    <div class="list-header">
+      <span>Envíos activos</span>
+      <span class="last-chk" id="lastChk"></span>
+    </div>
+
+    <div id="shipList"></div>
+
+    <div class="push-strip">
+      <div class="push-info">
+        <h4>🔔 Notificaciones en el navegador</h4>
+        <p>Recibe alertas aunque esta pestaña esté cerrada</p>
+      </div>
+      <div class="push-right">
+        <span class="push-txt" id="pushTxt">No activado</span>
+        <button class="btn-add" style="padding:0.4rem 1rem;font-size:0.78rem" id="pushBtn" onclick="enablePush()">Activar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── Config Modal ─────────────────────────────────────────────────────── -->
+<div class="modal-bg" id="cfgModal">
+  <div class="modal-box">
+    <h3>⚙ GitHub Config</h3>
+    <p class="modal-sub">Necesario para leer y actualizar tu watchlist.json desde el navegador.</p>
+    <div class="mf"><label>Usuario de GitHub</label><input type="text" id="cfgU" placeholder="tu-usuario"></div>
+    <div class="mf"><label>Nombre del repositorio</label><input type="text" id="cfgR" placeholder="nombre-del-repo"></div>
+    <div class="mf"><label>Personal Access Token (PAT)</label><input type="password" id="cfgT" placeholder="ghp_..."></div>
+    <p class="mnote">Crea un token en <strong>github.com → Settings → Developer settings → Personal access tokens</strong>. Activa el scope <code>repo</code>. Se guarda solo en tu navegador.</p>
+    <div class="mactions">
+      <button class="btn-mcancel" onclick="closeCfg()">Cancelar</button>
+      <button class="btn-msave" onclick="saveCfg()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const PASSWORD         = "lasalle6177$!"; // your private password
+const VAPID_PUBLIC_KEY = "BL6g75DEeHbVIqk9z6dZcWDn1oXMwEAfdp4gANqFB1eNHEq8XMMAlfRPD1M0ocrd6CLguc9zSe11jyd8foNzftU";          // paste after: npm run generate-vapid
+// ──────────────────────────────────────────────────────────────────────────
+
+const AUTH_KEY = "koko_tracker_v2";   // bump this string to force re-login
+
+let ghCfg     = null;
+let watchlist = { shipments: [], pushSubscriptions: [] };
+
+// ── Boot ──────────────────────────────────────────────────────────────────
+(function boot() {
+  try { ghCfg = JSON.parse(localStorage.getItem("koko_gh_cfg") || "null"); } catch(e) {}
+  if (sessionStorage.getItem(AUTH_KEY) === "1") {
+    showDash();
+  }
+})();
+
+// ── Auth ──────────────────────────────────────────────────────────────────
+function tryLogin() {
+  const v = document.getElementById("pwInput").value;
+  if (v === PASSWORD) {
+    sessionStorage.setItem(AUTH_KEY, "1");
+    showDash();
+  } else {
+    const inp = document.getElementById("pwInput");
+    inp.classList.add("shake");
+    document.getElementById("loginErr").textContent = "Contraseña incorrecta";
+    inp.addEventListener("animationend", () => inp.classList.remove("shake"), { once: true });
+  }
+}
+
+document.getElementById("pwInput").addEventListener("keydown", e => {
+  if (e.key === "Enter") tryLogin();
+});
+
+function showDash() {
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("dash").style.display = "block";
+  updBiz();
+  setInterval(updBiz, 60000);
+  loadAndRender();
+}
+
+function doLogout() {
+  sessionStorage.removeItem(AUTH_KEY);
+  location.reload();
+}
+
+// ── Business hours ────────────────────────────────────────────────────────
+function updBiz() {
+  const et  = new Date(new Date().toLocaleString("en-US", { timeZone: "America/New_York" }));
+  const on  = et.getDay() >= 1 && et.getDay() <= 6 && et.getHours() >= 9 && et.getHours() < 19;
+  const el  = document.getElementById("bizPill");
+  el.textContent = on ? "⬤  Activo" : "⬤  Fuera de horario";
+  el.className   = "biz-pill " + (on ? "on" : "off");
+}
+
+// ── GitHub API ────────────────────────────────────────────────────────────
+async function ghReq(method, file, body) {
+  if (!ghCfg) { openCfg(); throw new Error("Sin config"); }
+  return fetch(`https://api.github.com/repos/${ghCfg.user}/${ghCfg.repo}/contents/${file}`, {
+    method,
+    headers: { Authorization: `Bearer ${ghCfg.token}`, Accept: "application/vnd.github+json", "Content-Type": "application/json" },
+    body: body ? JSON.stringify(body) : undefined
+  });
+}
+
+async function loadWL() {
+  try {
+    const r = await ghReq("GET", "watchlist.json");
+    if (!r.ok) throw new Error();
+    const d = await r.json();
+    watchlist = JSON.parse(atob(d.content));
+    watchlist._sha = d.sha;
+    return true;
+  } catch { return false; }
+}
+
+async function saveWL() {
+  try {
+    const { _sha, ...data } = watchlist;
+    const r = await ghReq("PUT", "watchlist.json", {
+      message: "chore: update watchlist from dashboard",
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2)))),
+      ...(watchlist._sha ? { sha: watchlist._sha } : {})
+    });
+    if (!r.ok) { const e = await r.json(); throw new Error(e.message); }
+    watchlist._sha = (await r.json()).content.sha;
+    return true;
+  } catch(e) { toast("Error: " + e.message, true); return false; }
+}
+
+async function loadAndRender() {
+  if (ghCfg) await loadWL();
+  render();
+  if (!ghCfg) setTimeout(() => toast("Configura tu acceso GitHub con ⚙ Config"), 600);
+}
+
+// ── Render ────────────────────────────────────────────────────────────────
+const badgeFor = c =>
+  c === "CCD" ? `<span class="sbadge sb-ccd">✓ Despachado Aduana</span>`
+: c === "DLV" ? `<span class="sbadge sb-dlv">🚚 Entregado</span>`
+: `<span class="sbadge sb-wait">${c || "Sin datos"}</span>`;
+
+const codeTag = c => {
+  const u = c.trim().toUpperCase();
+  return `<span class="ctag ${u==="CCD"?"ct-ccd":u==="DLV"?"ct-dlv":"ct-def"}">${u}</span>`;
+};
+
+function render() {
+  const list = document.getElementById("shipList");
+
+  if (!watchlist.shipments?.length) {
+    list.innerHTML = `<div class="empty"><div class="ei">📦</div><p>No hay envíos en seguimiento.<br>Agrega un número MAWB arriba para comenzar.</p></div>`;
+    return;
+  }
+
+  const dates = watchlist.shipments.filter(s => s.lastChecked).map(s => new Date(s.lastChecked));
+  if (dates.length) {
+    document.getElementById("lastChk").textContent = "Verificado: " +
+      new Date(Math.max(...dates)).toLocaleString("es-US", {
+        timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit"
+      }) + " ET";
+  }
+
+  list.innerHTML = watchlist.shipments.map((s, i) => {
+    const rows = s.lastStatuses || [];
+    const lat  = rows[rows.length - 1];
+    const code = lat ? lat.code.trim().toUpperCase() : null;
+    const chk  = s.lastChecked
+      ? new Date(s.lastChecked).toLocaleString("es-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })
+      : "Pendiente";
+
+    const trs = rows.length
+      ? rows.map(r => {
+          const rc = r.code.trim().toUpperCase();
+          return `<tr class="${["CCD","DLV"].includes(rc)?"alert-row":""}">
+            <td>${r.origin} → ${r.dest}</td>
+            <td>${r.flight}</td>
+            <td style="color:var(--ink);font-weight:700">${r.status}</td>
+            <td>${codeTag(rc)}</td>
+            <td>${r.eventDate} ${r.eventTime}</td>
+            <td>${r.pieces}</td>
+          </tr>`;
+        }).join("")
+      : `<tr><td colspan="6" class="no-data">Sin datos — el verificador corre automáticamente en horario laboral</td></tr>`;
+
+    return `<div class="scard">
+      <div class="scard-top" onclick="tog(${i})">
+        <div class="scard-left">
+          <span class="mawb">${s.mawb}</span>
+          ${code ? badgeFor(code) : '<span class="sbadge sb-wait">Esperando...</span>'}
+          ${s.completed ? '<span class="sbadge sb-dlv">✓ Completo</span>' : ""}
+          ${s.lastError  ? '<span class="sbadge sb-err">⚠ Error</span>'   : ""}
+        </div>
+        <div class="scard-right">
+          <span class="schk">${chk} ET</span>
+          <button class="btn-rm" onclick="event.stopPropagation();rmShip(${i})" title="Eliminar">✕</button>
+          <span class="chev" id="cv-${i}">▼</span>
+        </div>
+      </div>
+      <div class="scard-body" id="bd-${i}">
+        <table class="stbl">
+          <thead><tr><th>Ruta</th><th>Vuelo</th><th>Estado</th><th>Código</th><th>Fecha / Hora</th><th>Bultos</th></tr></thead>
+          <tbody>${trs}</tbody>
+        </table>
+        ${s.lastError ? `<p class="err-note">Error: ${s.lastError}</p>` : ""}
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function tog(i) {
+  document.getElementById(`bd-${i}`).classList.toggle("open");
+  document.getElementById(`cv-${i}`).classList.toggle("open");
+}
+
+// ── Add / Remove ──────────────────────────────────────────────────────────
+async function addShip() {
+  const inp = document.getElementById("mawbIn");
+  const raw = inp.value.trim().replace(/\s/g, "");
+  if (!raw) return;
+  const d = raw.replace(/-/g, "");
+  if (!/^\d{10,12}$/.test(d)) { toast("Ingresa un MAWB válido (ej: 230-65923535)", true); return; }
+  const fmt = d.length === 11 ? `${d.slice(0,3)}-${d.slice(3)}` : d;
+  if (watchlist.shipments.find(s => s.mawb === fmt)) { toast("Este MAWB ya está en seguimiento"); return; }
+  watchlist.shipments.push({ mawb: fmt, addedAt: new Date().toISOString(), lastChecked: null, lastStatuses: [], notifiedCodes: [], completed: false, lastError: null });
+  if (await saveWL()) { inp.value = ""; render(); toast(`✓ Siguiendo ${fmt}`); }
+}
+
+async function rmShip(i) {
+  if (!confirm(`¿Eliminar ${watchlist.shipments[i].mawb}?`)) return;
+  watchlist.shipments.splice(i, 1);
+  if (await saveWL()) { render(); toast("Envío eliminado"); }
+}
+
+// ── Push ──────────────────────────────────────────────────────────────────
+async function enablePush() {
+  if (!VAPID_PUBLIC_KEY) { toast("Agrega tu VAPID_PUBLIC_KEY en tracker.html", true); return; }
+  try {
+    if (await Notification.requestPermission() !== "granted") { toast("Permiso denegado", true); return; }
+    const reg = await navigator.serviceWorker.register("/sw.js");
+    const sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64(VAPID_PUBLIC_KEY) });
+    watchlist.pushSubscriptions = watchlist.pushSubscriptions || [];
+    watchlist.pushSubscriptions.push(sub.toJSON());
+    await saveWL();
+    document.getElementById("pushTxt").textContent = "✓ Activado";
+    document.getElementById("pushTxt").className   = "push-txt on";
+    document.getElementById("pushBtn").textContent = "Activado";
+    document.getElementById("pushBtn").disabled    = true;
+    toast("✓ Notificaciones activadas");
+  } catch(e) { toast("Error: " + e.message, true); }
+}
+
+function b64(s) {
+  const raw = atob((s + "=".repeat((4 - s.length % 4) % 4)).replace(/-/g,"+").replace(/_/g,"/"));
+  return Uint8Array.from([...raw].map(c => c.charCodeAt(0)));
+}
+
+// ── Config modal ──────────────────────────────────────────────────────────
+function openCfg() {
+  if (ghCfg) { document.getElementById("cfgU").value=ghCfg.user||""; document.getElementById("cfgR").value=ghCfg.repo||""; document.getElementById("cfgT").value=ghCfg.token||""; }
+  document.getElementById("cfgModal").classList.add("open");
+}
+
+function closeCfg() { document.getElementById("cfgModal").classList.remove("open"); }
+
+function saveCfg() {
+  ghCfg = { user: document.getElementById("cfgU").value.trim(), repo: document.getElementById("cfgR").value.trim(), token: document.getElementById("cfgT").value.trim() };
+  localStorage.setItem("koko_gh_cfg", JSON.stringify(ghCfg));
+  closeCfg();
+  toast("Config guardada");
+  loadAndRender();
+}
+
+// ── Toast ─────────────────────────────────────────────────────────────────
+let tt;
+function toast(msg, err=false) {
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.className = "show" + (err ? " terr" : "");
+  clearTimeout(tt);
+  tt = setTimeout(() => el.className = "", 3200);
+}
+</script>
+</body>
+</html>

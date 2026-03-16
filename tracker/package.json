@@ -1,0 +1,14 @@
+{
+  "name": "cargo-tracker",
+  "version": "1.0.0",
+  "description": "AGI ONE cargo status monitor",
+  "scripts": {
+    "check": "node cargo-checker.js",
+    "generate-vapid": "node -e \"const wp=require('web-push');const k=wp.generateVAPIDKeys();console.log('PUBLIC:',k.publicKey);console.log('PRIVATE:',k.privateKey);\""
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.7",
+    "puppeteer": "^21.0.0",
+    "web-push": "^3.6.7"
+  }
+}
