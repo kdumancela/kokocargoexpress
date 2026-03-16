@@ -36,10 +36,11 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install --prefix tracker
+        run: npm install
 
       - name: Install Chromium for Puppeteer
         run: npx puppeteer browsers install chrome
+        working-directory: tracker
 
       - name: Run cargo checker
         env:
@@ -48,7 +49,7 @@ jobs:
           NOTIFY_EMAIL:  ${{ secrets.NOTIFY_EMAIL }}
           VAPID_PUBLIC:  ${{ secrets.VAPID_PUBLIC }}
           VAPID_PRIVATE: ${{ secrets.VAPID_PRIVATE }}
-        run: node tracker/cargo-checker.js
+        run: node cargo-checker.js
 
       - name: Commit updated watchlist
         run: |
