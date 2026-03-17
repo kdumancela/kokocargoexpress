@@ -300,6 +300,15 @@
       "notifiedCodes": [],
       "completed": false,
       "lastError": null
+    },
+    {
+      "mawb": "145-11238603",
+      "addedAt": "2026-03-17T18:29:51.325Z",
+      "lastChecked": null,
+      "lastStatuses": [],
+      "notifiedCodes": [],
+      "completed": false,
+      "lastError": null
     }
   ]
 }
