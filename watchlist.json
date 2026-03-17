@@ -190,6 +190,15 @@
       ],
       "completed": true,
       "lastError": null
+    },
+    {
+      "mawb": "145-11238625",
+      "addedAt": "2026-03-17T13:29:25.302Z",
+      "lastChecked": null,
+      "lastStatuses": [],
+      "notifiedCodes": [],
+      "completed": false,
+      "lastError": null
     }
   ]
 }
