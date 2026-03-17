@@ -114,9 +114,7 @@ async function sendEmail(mawb, code, row) {
   if (!EMAIL_USER || !EMAIL_PASS || !NOTIFY_EMAIL) return;
   const isDelivered = code === "DLV";
   const color   = isDelivered ? "#1a5c28" : "#1a3a8f";
-  const subject = isDelivered
-    ? `MAWB ${mawb} — Carga en tránsito a CES`
-    : `MAWB ${mawb} — Documentos procesados. Carga preparándose para traslado a CES`;
+  const subject = `MAWB ${mawb}`;
   const heading = isDelivered
     ? "Carga en tránsito a CES"
     : "Documentos procesados. Carga preparándose para traslado a CES";
