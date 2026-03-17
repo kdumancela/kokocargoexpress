@@ -11,11 +11,10 @@ const VAPID_PUBLIC  = process.env.VAPID_PUBLIC;
 const VAPID_PRIVATE = process.env.VAPID_PRIVATE;
 const VAPID_CONTACT = `mailto:${NOTIFY_EMAIL}`;
 
-// ── SMS recipients (AT&T email-to-text) ───────────────────────────────────
+// ── SMS recipients (iMessage via email) ───────────────────────────────────
 const SMS_RECIPIENTS = [
-  "9174994082@txt.att.net",
-  "3472248350@txt.att.net",
-  "7187305317@txt.att.net"
+  "9174994082@imessage.apple.com",
+  "7187305317@imessage.apple.com"
 ];
 
 // ── Alert codes ───────────────────────────────────────────────────────────
