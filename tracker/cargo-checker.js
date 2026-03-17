@@ -1,10 +1,9 @@
-const puppeteer = require("puppeteer");
 const nodemailer = require("nodemailer");
-const webpush   = require("web-push");
-const fs        = require("fs");
-const path      = require("path");
+const webpush    = require("web-push");
+const fs         = require("fs");
+const path       = require("path");
 
-// ── Environment variables (stored as GitHub Secrets) ──────────────────────
+// ── Environment variables ──────────────────────────────────────────────────
 const EMAIL_USER    = process.env.EMAIL_USER;
 const EMAIL_PASS    = process.env.EMAIL_PASS;
 const NOTIFY_EMAIL  = process.env.NOTIFY_EMAIL;
@@ -18,21 +17,19 @@ const SMS_RECIPIENTS = [
   "3472248350@txt.att.net",
   "7187305317@txt.att.net"
 ];
+
+// ── Alert codes ───────────────────────────────────────────────────────────
 const ALERT_CODES = {
-  CCD: "Cleared by Customs",
-  DLV: "Delivered"
+  CCD: "Documentos procesados por Bombino",
+  DLV: "Carga en tránsito a CES por Bombino"
 };
 
 // ── Business hours check (Mon–Sat, 9am–7pm ET) ────────────────────────────
 function isBusinessHours() {
-  const now = new Date();
-  // Convert to Eastern Time
-  const et = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
-  const day  = et.getDay();   // 0=Sun, 1=Mon ... 6=Sat
-  const hour = et.getHours(); // 0–23
-  const isWeekday = day >= 1 && day <= 6; // Mon–Sat
-  const isHours   = hour >= 9 && hour < 19; // 9am–7pm
-  return isWeekday && isHours;
+  const et   = new Date(new Date().toLocaleString("en-US", { timeZone: "America/New_York" }));
+  const day  = et.getDay();
+  const hour = et.getHours();
+  return day >= 1 && day <= 6 && hour >= 9 && hour < 19;
 }
 
 if (!isBusinessHours()) {
@@ -40,108 +37,80 @@ if (!isBusinessHours()) {
   process.exit(0);
 }
 
-// ── Load watchlist ─────────────────────────────────────────────────────────
+// ── Load watchlist ────────────────────────────────────────────────────────
 const watchlistPath = path.join(__dirname, "..", "watchlist.json");
-const watchlist = JSON.parse(fs.readFileSync(watchlistPath, "utf8"));
+const watchlist     = JSON.parse(fs.readFileSync(watchlistPath, "utf8"));
 
 if (!watchlist.shipments || watchlist.shipments.length === 0) {
-  console.log("No shipments being watched. Exiting.");
+  console.log("No shipments in watchlist. Exiting.");
   process.exit(0);
 }
 
 console.log(`Checking ${watchlist.shipments.length} shipment(s)...`);
 
-// ── Web push setup ─────────────────────────────────────────────────────────
+// ── Web push setup ────────────────────────────────────────────────────────
 if (VAPID_PUBLIC && VAPID_PRIVATE) {
   webpush.setVapidDetails(VAPID_CONTACT, VAPID_PUBLIC, VAPID_PRIVATE);
 }
 
-// ── Email transporter ──────────────────────────────────────────────────────
+// ── Email transporter ─────────────────────────────────────────────────────
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: { user: EMAIL_USER, pass: EMAIL_PASS }
 });
 
-// ── Scrape one MAWB from AGI ONE ───────────────────────────────────────────
-async function scrapeMAWB(browser, mawb) {
-  const page = await browser.newPage();
+// ── Fetch MAWB status from AGI ONE API ────────────────────────────────────
+async function fetchMAWB(mawb) {
+  const digits  = mawb.replace(/-/g, "");
+  const setting = encodeURIComponent(JSON.stringify({
+    timezone: "America/New_York",
+    fromAdmin: true,
+    appMode: "iadmin",
+    locale: "en"
+  }));
+  const url = `https://one-prod.allianceground.com/api/cargo/v1/awb-tracking/${digits}?setting=${setting}`;
+
   try {
-    await page.setUserAgent(
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"
-    );
-
-    console.log(`  → Scraping ${mawb}`);
-    await page.goto("https://one.allianceground.com/#/cargo/awb-tracking", {
-      waitUntil: "domcontentloaded",
-      timeout: 30000
+    console.log(`  → Fetching ${mawb}`);
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Origin": "https://one.allianceground.com",
+        "Referer": "https://one.allianceground.com/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"
+      },
+      body: JSON.stringify({ key: digits })
     });
 
-    // Wait for Angular app to render
-    await new Promise(r => setTimeout(r, 4000));
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-    // Wait for input to appear
-    await page.waitForSelector("input", { timeout: 15000 });
-    await new Promise(r => setTimeout(r, 1000));
+    const json     = await res.json();
+    const segments = json?.data?.segments || [];
 
-    // Type MAWB into first visible text input (strip dashes)
-    const mawbClean = mawb.replace(/-/g, "");
-    await page.evaluate((val) => {
-      const inputs = Array.from(document.querySelectorAll("input"))
-        .filter(el => el.offsetParent !== null && el.type !== "checkbox" && el.type !== "radio");
-      if (inputs[0]) {
-        inputs[0].focus();
-        inputs[0].value = val;
-        inputs[0].dispatchEvent(new Event("input",  { bubbles: true }));
-        inputs[0].dispatchEvent(new Event("change", { bubbles: true }));
-      }
-    }, mawbClean);
-
-    await new Promise(r => setTimeout(r, 500));
-
-    // Click the Search button
-    await page.evaluate(() => {
-      const btns = Array.from(document.querySelectorAll("button"));
-      const searchBtn = btns.find(b =>
-        b.textContent.trim().toUpperCase().includes("SEARCH") || b.type === "submit"
-      );
-      if (searchBtn) searchBtn.click();
-    });
-
-    // Wait for results
-    await page.waitForSelector("table tbody tr", { timeout: 30000 });
-    await new Promise(r => setTimeout(r, 1000));
-
-    // Extract all status rows
-    const statuses = await page.evaluate(() => {
-      const rows = Array.from(document.querySelectorAll("table tbody tr"));
-      return rows.map(row => {
-        const cells = Array.from(row.querySelectorAll("td")).map(c => c.textContent.trim());
-        return {
-          origin:    cells[0] || "",
-          dest:      cells[1] || "",
-          flight:    cells[2] || "",
-          status:    cells[3] || "",
-          code:      cells[4] || "",
-          eventDate: cells[5] || "",
-          eventTime: cells[6] || "",
-          pieces:    cells[7] || "",
-          weight:    cells[8] || ""
-        };
-      }).filter(r => r.code);
-    });
+    const statuses = segments.map(s => ({
+      origin:    s.origin    || "",
+      dest:      s.dest      || "",
+      flight:    s.flightNum || "",
+      status:    s.status    || "",
+      code:      s.statusCode || "",
+      eventDate: s.eventDate || "",
+      eventTime: s.eventTime || "",
+      pieces:    s.numPieces  || "",
+      weight:    s.weight    || ""
+    })).filter(s => s.code);
 
     console.log(`     Found ${statuses.length} status rows`);
     return { mawb, statuses, error: null };
 
   } catch (err) {
-    console.error(`  ✗ Error scraping ${mawb}: ${err.message}`);
+    console.error(`  ✗ Error fetching ${mawb}: ${err.message}`);
     return { mawb, statuses: [], error: err.message };
-  } finally {
-    await page.close();
   }
 }
 
-// ── Send email notification ────────────────────────────────────────────────
+// ── Send email notification ───────────────────────────────────────────────
 async function sendEmail(mawb, code, row) {
   if (!EMAIL_USER || !EMAIL_PASS || !NOTIFY_EMAIL) return;
   const isDelivered = code === "DLV";
@@ -205,14 +174,15 @@ async function sendSMS(mawb, code) {
     }
   }
 }
+
+// ── Send browser push notification ────────────────────────────────────────
 async function sendPush(mawb, code) {
   if (!VAPID_PUBLIC || !VAPID_PRIVATE) return;
-  if (!watchlist.pushSubscriptions || watchlist.pushSubscriptions.length === 0) return;
+  if (!watchlist.pushSubscriptions?.length) return;
 
-  const label = ALERT_CODES[code];
   const payload = JSON.stringify({
-    title: `${code === "DLV" ? "🚚" : "✅"} ${mawb} — ${label}`,
-    body:  `Your cargo has reached: ${label}`,
+    title: `${mawb} — ${ALERT_CODES[code]}`,
+    body:  ALERT_CODES[code],
     tag:   `cargo-${mawb}-${code}`
   });
 
@@ -228,36 +198,25 @@ async function sendPush(mawb, code) {
 
 // ── Main ──────────────────────────────────────────────────────────────────
 (async () => {
-  const browser = await puppeteer.launch({
-    headless: "new",
-    args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]
-  });
-
-  let watchlistChanged = false;
+  let changed = false;
 
   for (const shipment of watchlist.shipments) {
-    const { mawb, statuses, error } = await scrapeMAWB(browser, shipment.mawb);
+    const { mawb, statuses, error } = await fetchMAWB(shipment.mawb);
 
-    if (error) {
-      shipment.lastError = error;
-      shipment.lastChecked = new Date().toISOString();
-      watchlistChanged = true;
-      continue;
-    }
-
-    // Update last checked + latest statuses
     shipment.lastChecked = new Date().toISOString();
-    shipment.lastStatuses = statuses;
-    shipment.lastError = null;
-    watchlistChanged = true;
+    shipment.lastError   = error || null;
+    changed = true;
 
-    // Check for alert-worthy status codes we haven't notified about yet
+    if (error) continue;
+
+    shipment.lastStatuses = statuses;
+
     const alreadyNotified = shipment.notifiedCodes || [];
 
     for (const row of statuses) {
       const code = row.code.trim().toUpperCase();
       if (ALERT_CODES[code] && !alreadyNotified.includes(code)) {
-        console.log(`  🚨 Alert triggered: ${mawb} → ${code} (${ALERT_CODES[code]})`);
+        console.log(`  🚨 Alert: ${mawb} → ${code}`);
         await sendEmail(mawb, code, row);
         await sendSMS(mawb, code);
         await sendPush(mawb, code);
@@ -267,25 +226,19 @@ async function sendPush(mawb, code) {
 
     shipment.notifiedCodes = alreadyNotified;
 
-    // Mark complete if DLV found
     if (alreadyNotified.includes("DLV")) {
       shipment.completed = true;
       console.log(`  ✓ ${mawb} marked complete`);
     }
   }
 
-  await browser.close();
-
   // Remove completed shipments older than 24 hours
-  const cutoff = Date.now() - 24 * 60 * 60 * 1000;
   watchlist.shipments = watchlist.shipments.filter(s => {
     if (!s.completed) return true;
-    const checkedAt = new Date(s.lastChecked).getTime();
-    return checkedAt > cutoff;
+    return (Date.now() - new Date(s.lastChecked).getTime()) < 24 * 60 * 60 * 1000;
   });
 
-  // Save updated watchlist back to file
-  if (watchlistChanged) {
+  if (changed) {
     fs.writeFileSync(watchlistPath, JSON.stringify(watchlist, null, 2));
     console.log("Watchlist saved.");
   }

@@ -37,10 +37,6 @@ jobs:
         working-directory: tracker
         run: npm install
 
-      - name: Install Chromium for Puppeteer
-        working-directory: tracker
-        run: node node_modules/puppeteer/install.mjs
-
       - name: Run cargo checker
         working-directory: tracker
         env:
