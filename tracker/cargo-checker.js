@@ -72,13 +72,16 @@ async function scrapeMAWB(browser, mawb) {
 
     console.log(`  → Scraping ${mawb}`);
     await page.goto("https://one.allianceground.com/#/cargo/awb-tracking", {
-      waitUntil: "networkidle2",
+      waitUntil: "domcontentloaded",
       timeout: 30000
     });
 
-    // Wait for page to fully load the Angular app
+    // Wait for Angular app to render
+    await new Promise(r => setTimeout(r, 4000));
+
+    // Wait for input to appear
     await page.waitForSelector("input", { timeout: 15000 });
-    await new Promise(r => setTimeout(r, 1500));
+    await new Promise(r => setTimeout(r, 1000));
 
     // Type MAWB into first visible text input (strip dashes)
     const mawbClean = mawb.replace(/-/g, "");
@@ -105,8 +108,8 @@ async function scrapeMAWB(browser, mawb) {
     });
 
     // Wait for results
-    await page.waitForSelector("table tbody tr", { timeout: 20000 });
-    await new Promise(r => setTimeout(r, 1500));
+    await page.waitForSelector("table tbody tr", { timeout: 30000 });
+    await new Promise(r => setTimeout(r, 1000));
 
     // Extract all status rows
     const statuses = await page.evaluate(() => {
