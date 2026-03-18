@@ -31,7 +31,9 @@ function isBusinessHours() {
   return day >= 1 && day <= 6 && hour >= 9 && hour < 19;
 }
 
-if (!isBusinessHours()) {
+const isManualRun = process.env.MANUAL_RUN === "true";
+
+if (!isManualRun && !isBusinessHours()) {
   console.log("Outside business hours (Mon–Sat 9am–7pm ET). Exiting.");
   process.exit(0);
 }

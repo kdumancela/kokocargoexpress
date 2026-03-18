@@ -45,6 +45,7 @@ jobs:
           NOTIFY_EMAIL:  ${{ secrets.NOTIFY_EMAIL }}
           VAPID_PUBLIC:  ${{ secrets.VAPID_PUBLIC }}
           VAPID_PRIVATE: ${{ secrets.VAPID_PRIVATE }}
+          MANUAL_RUN:    ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
         run: node cargo-checker.js
 
       - name: Commit updated watchlist
