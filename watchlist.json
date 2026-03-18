@@ -3,7 +3,7 @@
     {
       "mawb": "729-91024161",
       "addedAt": "2026-03-16T20:43:04.183Z",
-      "lastChecked": "2026-03-17T22:41:26.350Z",
+      "lastChecked": "2026-03-18T01:56:34.774Z",
       "lastStatuses": [
         {
           "origin": "GYE",
@@ -115,7 +115,7 @@
     {
       "mawb": "145-11238625",
       "addedAt": "2026-03-17T13:29:25.302Z",
-      "lastChecked": "2026-03-17T22:41:26.911Z",
+      "lastChecked": "2026-03-18T01:56:35.491Z",
       "lastStatuses": [
         {
           "origin": "GYE",
@@ -216,7 +216,7 @@
     {
       "mawb": "230-65917950",
       "addedAt": "2026-03-17T18:29:24.666Z",
-      "lastChecked": "2026-03-17T22:41:27.544Z",
+      "lastChecked": "2026-03-18T01:56:36.191Z",
       "lastStatuses": [
         {
           "origin": "PTY",
@@ -283,7 +283,7 @@
     {
       "mawb": "145-11238603",
       "addedAt": "2026-03-17T18:29:51.325Z",
-      "lastChecked": "2026-03-17T22:41:28.067Z",
+      "lastChecked": "2026-03-18T01:56:36.682Z",
       "lastStatuses": [
         {
           "origin": "LIM",
@@ -384,10 +384,80 @@
     {
       "mawb": "230-65923535",
       "addedAt": "2026-03-18T01:56:11.278Z",
-      "lastChecked": null,
-      "lastStatuses": [],
-      "notifiedCodes": [],
-      "completed": false,
+      "lastChecked": "2026-03-18T01:56:37.505Z",
+      "lastStatuses": [
+        {
+          "origin": "PTY",
+          "dest": "JFK",
+          "flight": "CM804",
+          "status": "Departed",
+          "code": "ULD",
+          "eventDate": "15MAR26",
+          "eventTime": "18:16",
+          "pieces": "18",
+          "weight": "762.0"
+        },
+        {
+          "origin": "PTY",
+          "dest": "JFK",
+          "flight": "CM804",
+          "status": "Received From Flight",
+          "code": "RCF",
+          "eventDate": "15MAR26",
+          "eventTime": "21:50",
+          "pieces": "18",
+          "weight": "762.0"
+        },
+        {
+          "origin": "PTY",
+          "dest": "JFK",
+          "flight": "CM804",
+          "status": "Arrival documents delivered to Consignee/Agent",
+          "code": "AWD",
+          "eventDate": "15MAR26",
+          "eventTime": "21:50",
+          "pieces": "18",
+          "weight": "762.0"
+        },
+        {
+          "origin": "PTY",
+          "dest": "JFK",
+          "flight": "CM804",
+          "status": "Consignee/Agent notified of arrival",
+          "code": "NFD",
+          "eventDate": "15MAR26",
+          "eventTime": "21:50",
+          "pieces": "18",
+          "weight": "762.0"
+        },
+        {
+          "origin": "PTY",
+          "dest": "JFK",
+          "flight": "CM804",
+          "status": "Cleared by Customs",
+          "code": "CCD",
+          "eventDate": "16MAR26",
+          "eventTime": "11:43",
+          "pieces": "18",
+          "weight": "762.0"
+        },
+        {
+          "origin": "PTY",
+          "dest": "JFK",
+          "flight": "CM804",
+          "status": "Delivered",
+          "code": "DLV",
+          "eventDate": "16MAR26",
+          "eventTime": "11:49",
+          "pieces": "18",
+          "weight": "762.0"
+        }
+      ],
+      "notifiedCodes": [
+        "CCD",
+        "DLV"
+      ],
+      "completed": true,
       "lastError": null
     }
   ]
