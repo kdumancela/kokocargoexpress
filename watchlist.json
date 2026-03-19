@@ -27,5 +27,15 @@
       "completed": false,
       "lastError": null
     }
+  ],
+  "pushSubscriptions": [
+    {
+      "endpoint": "https://fcm.googleapis.com/fcm/send/dMEZbRutFrM:APA91bFf_wuQEYLA64VTJFeSAbPMTuyXM9oUB-4LZvjD6UDv0DYrD-fKfA73qwRz0bKbdsOHJlpTAkznk4fYc86sLoSsPNQ5s3277f-iWGV2x0-C5T3rDwzhQvtQ6xJSGEmp4nhtWINX",
+      "expirationTime": null,
+      "keys": {
+        "p256dh": "BGw0xX7vVwbXLbAuyt30yJ5uix_lZ7uwU04lrC3OoIucqnRh5nnV88mQhJ63f8YB5rGtobA1km1mi9N-lmR0b0k",
+        "auth": "Woqa3d_OMtohu2wPWareUA"
+      }
+    }
   ]
 }
