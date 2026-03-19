@@ -3,7 +3,7 @@
     {
       "mawb": "230-65923594",
       "addedAt": "2026-03-19T11:20:40.837Z",
-      "lastChecked": "2026-03-19T14:42:27.603Z",
+      "lastChecked": "2026-03-19T15:55:44.662Z",
       "lastStatuses": [
         {
           "origin": "PTY",
@@ -26,16 +26,51 @@
           "eventTime": "16:31",
           "pieces": "20",
           "weight": "836.0"
+        },
+        {
+          "origin": "PTY",
+          "dest": "JFK",
+          "flight": "CM819",
+          "status": "Arrival documents delivered to Consignee/Agent",
+          "code": "AWD",
+          "eventDate": "19MAR26",
+          "eventTime": "11:06",
+          "pieces": "20",
+          "weight": "836.0"
+        },
+        {
+          "origin": "PTY",
+          "dest": "JFK",
+          "flight": "CM819",
+          "status": "Consignee/Agent notified of arrival",
+          "code": "NFD",
+          "eventDate": "19MAR26",
+          "eventTime": "11:06",
+          "pieces": "20",
+          "weight": "836.0"
+        },
+        {
+          "origin": "PTY",
+          "dest": "JFK",
+          "flight": "CM819",
+          "status": "Cleared by Customs",
+          "code": "CCD",
+          "eventDate": "19MAR26",
+          "eventTime": "11:28",
+          "pieces": "20",
+          "weight": "836.0"
         }
       ],
-      "notifiedCodes": [],
+      "notifiedCodes": [
+        "CCD"
+      ],
       "completed": false,
       "lastError": null
     },
     {
       "mawb": "145-11238636",
       "addedAt": "2026-03-19T11:20:59.970Z",
-      "lastChecked": "2026-03-19T14:42:28.457Z",
+      "lastChecked": "2026-03-19T15:55:50.073Z",
       "lastStatuses": [
         {
           "origin": "LIM",
@@ -80,6 +115,50 @@
           "eventTime": "02:31",
           "pieces": "3",
           "weight": "121.3"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Arrived",
+          "code": "ARR",
+          "eventDate": "19MAR26",
+          "eventTime": "11:27",
+          "pieces": "14",
+          "weight": "562.0"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Received From Flight",
+          "code": "RCF",
+          "eventDate": "19MAR26",
+          "eventTime": "11:27",
+          "pieces": "14",
+          "weight": "562.0"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Arrival documents delivered to Consignee/Agent",
+          "code": "AWD",
+          "eventDate": "19MAR26",
+          "eventTime": "11:29",
+          "pieces": "14",
+          "weight": "562.0"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Consignee/Agent notified of arrival",
+          "code": "NFD",
+          "eventDate": "19MAR26",
+          "eventTime": "11:29",
+          "pieces": "14",
+          "weight": "562.0"
         }
       ],
       "notifiedCodes": [],
