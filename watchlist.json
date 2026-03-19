@@ -3,7 +3,7 @@
     {
       "mawb": "230-65923594",
       "addedAt": "2026-03-19T11:20:40.837Z",
-      "lastChecked": "2026-03-19T16:53:27.482Z",
+      "lastChecked": "2026-03-19T17:54:15.386Z",
       "lastStatuses": [
         {
           "origin": "PTY",
@@ -70,7 +70,7 @@
     {
       "mawb": "145-11238636",
       "addedAt": "2026-03-19T11:20:59.970Z",
-      "lastChecked": "2026-03-19T16:53:28.203Z",
+      "lastChecked": "2026-03-19T17:54:16.013Z",
       "lastStatuses": [
         {
           "origin": "LIM",
@@ -159,9 +159,22 @@
           "eventTime": "11:29",
           "pieces": "14",
           "weight": "562.0"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Cleared by Customs",
+          "code": "CCD",
+          "eventDate": "19MAR26",
+          "eventTime": "13:17",
+          "pieces": "14",
+          "weight": "562.0"
         }
       ],
-      "notifiedCodes": [],
+      "notifiedCodes": [
+        "CCD"
+      ],
       "completed": false,
       "lastError": null
     }
