@@ -3,8 +3,31 @@
     {
       "mawb": "230-65923594",
       "addedAt": "2026-03-19T11:20:40.837Z",
-      "lastChecked": null,
-      "lastStatuses": [],
+      "lastChecked": "2026-03-19T13:49:03.522Z",
+      "lastStatuses": [
+        {
+          "origin": "PTY",
+          "dest": "JFK",
+          "flight": "CM819",
+          "status": "Departed",
+          "code": "ULD",
+          "eventDate": "18MAR26",
+          "eventTime": "09:00",
+          "pieces": "20",
+          "weight": "836.0"
+        },
+        {
+          "origin": "PTY",
+          "dest": "JFK",
+          "flight": "CM819",
+          "status": "Received From Flight",
+          "code": "RCF",
+          "eventDate": "18MAR26",
+          "eventTime": "16:31",
+          "pieces": "20",
+          "weight": "836.0"
+        }
+      ],
       "notifiedCodes": [],
       "completed": false,
       "lastError": null
@@ -12,7 +35,7 @@
     {
       "mawb": "729-91024183",
       "addedAt": "2026-03-19T11:20:51.727Z",
-      "lastChecked": null,
+      "lastChecked": "2026-03-19T13:49:03.859Z",
       "lastStatuses": [],
       "notifiedCodes": [],
       "completed": false,
@@ -21,8 +44,53 @@
     {
       "mawb": "145-11238636",
       "addedAt": "2026-03-19T11:20:59.970Z",
-      "lastChecked": null,
-      "lastStatuses": [],
+      "lastChecked": "2026-03-19T13:49:04.286Z",
+      "lastStatuses": [
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Departed",
+          "code": "ULD",
+          "eventDate": "19MAR26",
+          "eventTime": "02:30",
+          "pieces": "11",
+          "weight": "440.7"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Departed",
+          "code": "ULD",
+          "eventDate": "19MAR26",
+          "eventTime": "02:30",
+          "pieces": "3",
+          "weight": "121.3"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Departed",
+          "code": "ULD",
+          "eventDate": "19MAR26",
+          "eventTime": "02:30",
+          "pieces": "11",
+          "weight": "440.7"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Departed",
+          "code": "ULD",
+          "eventDate": "19MAR26",
+          "eventTime": "02:31",
+          "pieces": "3",
+          "weight": "121.3"
+        }
+      ],
       "notifiedCodes": [],
       "completed": false,
       "lastError": null
