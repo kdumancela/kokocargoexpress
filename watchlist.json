@@ -3,7 +3,7 @@
     {
       "mawb": "230-65923594",
       "addedAt": "2026-03-19T11:20:40.837Z",
-      "lastChecked": "2026-03-19T20:39:12.406Z",
+      "lastChecked": "2026-03-19T21:28:31.268Z",
       "lastStatuses": [
         {
           "origin": "PTY",
@@ -70,7 +70,7 @@
     {
       "mawb": "145-11238636",
       "addedAt": "2026-03-19T11:20:59.970Z",
-      "lastChecked": "2026-03-19T20:39:13.078Z",
+      "lastChecked": "2026-03-19T21:28:31.826Z",
       "lastStatuses": [
         {
           "origin": "LIM",
@@ -170,12 +170,24 @@
           "eventTime": "13:17",
           "pieces": "14",
           "weight": "562.0"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Delivered",
+          "code": "DLV",
+          "eventDate": "19MAR26",
+          "eventTime": "17:26",
+          "pieces": "14",
+          "weight": "562.0"
         }
       ],
       "notifiedCodes": [
-        "CCD"
+        "CCD",
+        "DLV"
       ],
-      "completed": false,
+      "completed": true,
       "lastError": null
     }
   ],
