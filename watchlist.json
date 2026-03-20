@@ -3,7 +3,7 @@
     {
       "mawb": "230-65923594",
       "addedAt": "2026-03-19T11:20:40.837Z",
-      "lastChecked": "2026-03-20T15:43:01.336Z",
+      "lastChecked": "2026-03-20T16:37:29.877Z",
       "lastStatuses": [
         {
           "origin": "PTY",
@@ -70,7 +70,7 @@
     {
       "mawb": "145-11238636",
       "addedAt": "2026-03-19T11:20:59.970Z",
-      "lastChecked": "2026-03-20T15:43:02.212Z",
+      "lastChecked": "2026-03-20T16:37:30.510Z",
       "lastStatuses": [
         {
           "origin": "LIM",
@@ -193,7 +193,7 @@
     {
       "mawb": "729-91024183",
       "addedAt": "2026-03-20T12:35:59.753Z",
-      "lastChecked": "2026-03-20T15:43:02.710Z",
+      "lastChecked": "2026-03-20T16:37:30.939Z",
       "lastStatuses": [
         {
           "origin": "BOG",
@@ -260,9 +260,22 @@
           "eventTime": "00:58",
           "pieces": "9",
           "weight": "365.0"
+        },
+        {
+          "origin": "BOG",
+          "dest": "JFK",
+          "flight": "AV244",
+          "status": "Cleared by Customs",
+          "code": "CCD",
+          "eventDate": "20MAR26",
+          "eventTime": "11:57",
+          "pieces": "9",
+          "weight": "365.0"
         }
       ],
-      "notifiedCodes": [],
+      "notifiedCodes": [
+        "CCD"
+      ],
       "completed": false,
       "lastError": null
     }
