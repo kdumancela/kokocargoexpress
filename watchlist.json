@@ -3,8 +3,75 @@
     {
       "mawb": "145-11238662",
       "addedAt": "2026-03-21T15:00:55.799Z",
-      "lastChecked": null,
-      "lastStatuses": [],
+      "lastChecked": "2026-03-21T15:27:05.359Z",
+      "lastStatuses": [
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Departed",
+          "code": "ULD",
+          "eventDate": "21MAR26",
+          "eventTime": "00:14",
+          "pieces": "4",
+          "weight": "110.0"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Departed",
+          "code": "ULD",
+          "eventDate": "21MAR26",
+          "eventTime": "00:14",
+          "pieces": "4",
+          "weight": "110.0"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Arrived",
+          "code": "ARR",
+          "eventDate": "21MAR26",
+          "eventTime": "09:31",
+          "pieces": "4",
+          "weight": "110.0"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Received From Flight",
+          "code": "RCF",
+          "eventDate": "21MAR26",
+          "eventTime": "09:31",
+          "pieces": "4",
+          "weight": "110.0"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Arrival documents delivered to Consignee/Agent",
+          "code": "AWD",
+          "eventDate": "21MAR26",
+          "eventTime": "09:43",
+          "pieces": "4",
+          "weight": "110.0"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Consignee/Agent notified of arrival",
+          "code": "NFD",
+          "eventDate": "21MAR26",
+          "eventTime": "09:43",
+          "pieces": "4",
+          "weight": "110.0"
+        }
+      ],
       "notifiedCodes": [],
       "completed": false,
       "lastError": null
@@ -12,8 +79,75 @@
     {
       "mawb": "145-11238673",
       "addedAt": "2026-03-21T15:01:15.492Z",
-      "lastChecked": null,
-      "lastStatuses": [],
+      "lastChecked": "2026-03-21T15:27:05.927Z",
+      "lastStatuses": [
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Departed",
+          "code": "ULD",
+          "eventDate": "21MAR26",
+          "eventTime": "00:14",
+          "pieces": "18",
+          "weight": "764.0"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Departed",
+          "code": "ULD",
+          "eventDate": "21MAR26",
+          "eventTime": "00:14",
+          "pieces": "18",
+          "weight": "764.0"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Arrived",
+          "code": "ARR",
+          "eventDate": "21MAR26",
+          "eventTime": "09:33",
+          "pieces": "18",
+          "weight": "764.0"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Received From Flight",
+          "code": "RCF",
+          "eventDate": "21MAR26",
+          "eventTime": "09:33",
+          "pieces": "18",
+          "weight": "764.0"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Arrival documents delivered to Consignee/Agent",
+          "code": "AWD",
+          "eventDate": "21MAR26",
+          "eventTime": "09:43",
+          "pieces": "18",
+          "weight": "764.0"
+        },
+        {
+          "origin": "LIM",
+          "dest": "JFK",
+          "flight": "LA2468",
+          "status": "Consignee/Agent notified of arrival",
+          "code": "NFD",
+          "eventDate": "21MAR26",
+          "eventTime": "09:43",
+          "pieces": "18",
+          "weight": "764.0"
+        }
+      ],
       "notifiedCodes": [],
       "completed": false,
       "lastError": null
