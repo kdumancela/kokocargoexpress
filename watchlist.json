@@ -8,6 +8,15 @@
       "notifiedCodes": [],
       "completed": false,
       "lastError": null
+    },
+    {
+      "mawb": "145-11238673",
+      "addedAt": "2026-03-21T15:01:15.492Z",
+      "lastChecked": null,
+      "lastStatuses": [],
+      "notifiedCodes": [],
+      "completed": false,
+      "lastError": null
     }
   ],
   "pushSubscriptions": [
